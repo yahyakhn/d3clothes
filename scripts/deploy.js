@@ -4,9 +4,7 @@
 // You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
-const { ethers } = require("hardhat")
 const hre = require("hardhat")
-const { TASK_COMPILE_SOLIDITY_CHECK_ERRORS } = require("hardhat/builtin-tasks/task-names")
 const { items } = require("../src/items.json")
 
 const tokens = (n) => {
@@ -14,27 +12,32 @@ const tokens = (n) => {
 }
 
 async function main() {
-const [deployer] = await ethers.getContractFactory("d3clothes")
-const D3clothes = await D3clothes.deploy()
-await D3clothes.deployed()
+  // Setup accounts
+  const [deployer] = await ethers.getSigners()
 
-console.log(`Deployed d3clothes contract at: ${D3clothes.address}\n`)
-//listing items
-for(let i = 0; i <items.length; i++){
-const transaction = await D3clothes.connect(deployer).list(
-  items[i].id,
-  items[i].name,
-  items[i].category,
-  items[i].image,
-  tokens(items[i].price),
-  items[i].rating,
-  items[i].stock,
+  // Deploy D3clothes
+  const d3clothes = await hre.ethers.getContractFactory("d3clothes")
+  const D3clothes = await d3clothes.deploy()
+  await D3clothes.deployed()
 
-)
-await transaction.wait()
-}
+  console.log(`Deployed d3clothes Contract at: ${D3clothes.address}\n`)
 
+  // Listing items...
+  for (let i = 0; i < items.length; i++) {
+    const transaction = await D3clothes.connect(deployer).list(
+      items[i].id,
+      items[i].name,
+      items[i].category,
+      items[i].image,
+      tokens(items[i].price),
+      items[i].rating,
+      items[i].stock,
+    )
 
+    await transaction.wait()
+
+    console.log(`Listed item ${items[i].id}: ${items[i].name}`)
+  }
 }
 
 // We recommend this pattern to be able to use async/await everywhere
