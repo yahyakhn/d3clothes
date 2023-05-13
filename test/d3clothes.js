@@ -99,7 +99,7 @@ describe("Withdrawing", () =>{
       await transaction.wait()
 
       //get balance before
-      balanceBefore = ethers.provider.getBalance(deployer.address)
+      balanceBefore = await ethers.provider.getBalance(deployer.address)
 
       //withdraw
       transaction = await D3clothes.connect(deployer).withdraw()
