@@ -38,7 +38,7 @@ const loadblockchainData = async() => {
     const clothing = items.filter((item) => item.category === "clothing")
     const toys = items.filter((item) => item.category === "toys")
     const electronics = items.filter((item) => item.category === "electronics")
-    const jewelry = items.filter((item) => item.category === jewelry")
+    const jewelry = items.filter((item) => item.category === "jewelry")
 
 }
 useEffect(()=> {
