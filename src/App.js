@@ -23,8 +23,12 @@ const [electronics, setElectonics] = useState(null)
 const [clothing, setClothing] = useState(null)
 const [toys, setToys] = useState(null)
 
-const togglePop = () =>{
-  console.log ("togglepop...")
+const [item , setItem] = useState({})
+const [toggle, setToggle] = useState(false)
+
+const togglePop = (item) =>{
+setItem(item)
+toggle ? setToggle(false) : setToggle(true)
 }
 
   async function loadblockchainData() {
@@ -68,6 +72,10 @@ useEffect(()=> {
         <Section title ={"electronics"} items={electronics} togglePop={togglePop}/>
         <Section title ={"Toys"} items={toys} togglePop={togglePop}/>
         </>
+      )}
+
+      {toggle && (
+        <Product item={item} provider={provider} account = {account} D3clothes = {D3clothes} togglePop={togglePop}/>
       )}
       {/* <p>{account}</p>
        */}
