@@ -6,7 +6,7 @@ import Rating from './Rating'
 
 import close from '../assets/close.svg'
 
-const Product = ({ item, provider, account, d3clothes, togglePop }) => {
+const Product = ({ item, provider, account, D3clothes, togglePop }) => {
 
   return (
     <div className="product">
@@ -20,19 +20,19 @@ const Product = ({ item, provider, account, d3clothes, togglePop }) => {
       
       <hr />
       <p>{item.address}</p>
-      <h2>{ethers.utils.formatUnits(item.cost.toString(), 'ehter')}ETH</h2>
+     <h2> {ethers.utils.formatUnits(item.cost.toString(), 'ether')} ETH</h2>
 
       <hr />
       <h2>Overview</h2>
       <p>
         {item.description}
-        lorem25
+        lorem
         
       </p>
 
     </div>
     </div>
-    </div>
+</div>
   );
 }
 
